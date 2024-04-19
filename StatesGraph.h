@@ -2,45 +2,54 @@
 #define FINALPROJECT_DSA_STATESGRAPH_H
 
 #include <iostream>
+#include <fstream>
+#include <tuple>
+#include <sstream>
+#include <string>
 #include <vector>
 #include <map>
 
+using namespace std;
+
 class StatesGraph
 {
-private:
+    private:
 
-    struct Node
-    {
-        std::string name;
-        std::vector<Node> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
+        struct Node
+        {
+            string name;
+            vector<Node*> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
 
-        float population;
-        float numDeaths;
-        float deathRate;
+            string population = "";
+            string numDeaths = "";
 
-        std::map<std::string, Node> countiesMap;
+            map<string, Node*> countiesMap;
 
-    };
+        };
 
-    bool exit = false;
-    std::map<std::string, Node> statesMap;
+        bool exit = false;
+        map<string, Node*> statesMap;
+        int year;
 
-public:
+        Node* graphHead = nullptr;
+        Node* graphCurrent = nullptr;
 
-    //Create a graph of all 50 US states with adjacent states having connections.
-    StatesGraph(std::vector<std::tuple<std::string>>& dataStream);
+    public:
 
-    //Recursively traverse through
-    void traverseState();
+        //Create a graph of all 50 US states with adjacent states having connections.
+        StatesGraph(vector<tuple<string, string, string, string>>& dataStream);
 
-    //Print every cancer incident for the current US state.
-    void printState();
+        //Recursively traverse through 
+        void traverseGraph(int level);
 
-    //Iterate through the graph and print every cancer incidence by US state.
-    void printAll();
+        //Print every county's data for the current US state.
+        void printState(Node*);
 
-    //Graph destructor.
-    ~StatesGraph();
+        //Iterate through the graph and print every county's data by US state.
+        void printAll();
+
+        //Graph destructor.
+        ~StatesGraph();
 
 };
 #endif //FINALPROJECT_DSA_STATESGRAPH_H
