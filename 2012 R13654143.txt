@@ -1,0 +1,100 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R13654143
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Cancer Data 2012
+Dataset:          Cancer Data 2012
+Tables:
+
+      1. Total Cancer Deaths
+         Universe:  none
+         Name:      T1
+         Variables:
+            T001_001:   Total Cancer Deaths (2012)
+            T001_002:   Total Cancer Deaths (2010-2012)
+            T001_003:   Total Cancer Deaths (2008-2012)
+            T001_004:   Total Cancer Deaths (2006-2012)
+
+
+      2. Total Cancer Deaths
+         Universe:  none
+         Name:      NV2
+         Variables:
+            NV002_001:   Total Cancer Deaths (2012)
+            NV002_002:   Total Cancer Deaths (2010-2012)
+            NV002_003:   Total Cancer Deaths (2008-2012)
+            NV002_004:   Total Cancer Deaths (2006-2012)
+
+
+      3. Total Population
+         Universe:  none
+         Name:      NV3
+         Variables:
+            NV003_001:   Total Population (est. 2012)
+            NV003_002:   Cumulative Population (est. 2010-2012)
+            NV003_003:   Cumulative Population (est. 2008-2012)
+            NV003_004:   Cumulative Population (est. 2006-2012)
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      FIPS:           FIPS
+      NAME:           Name of Area
+      QNAME:          Qualifying Name
+      NATION:         Nation
+      STATE:          State
+      COUNTY:         County
+      T001_001:       Total Cancer Deaths (Rate per 100,000 Population, 2012)
+      T001_002:       Total Cancer Deaths (Rate per 100,000 Population, 2010-2012)
+      T001_003:       Total Cancer Deaths (Rate per 100,000 Population, 2008-2012)
+      T001_004:       Total Cancer Deaths (Rate per 100,000 Population, 2006-2012)
+      NV002_001:      Total Cancer Deaths (2012)
+      NV002_002:      Total Cancer Deaths (2010-2012)
+      NV002_003:      Total Cancer Deaths (2008-2012)
+      NV002_004:      Total Cancer Deaths (2006-2012)
+      NV003_001:      Total Population (est. 2012)
+      NV003_002:      Denominator Total_Cancer deaths total_2010-2012
+      NV003_003:      Denominator Total_Cancer deaths total_2008-2012
+      NV003_004:      Denominator Total_Cancer deaths total_2006-2012
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2024
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R13654143
+
+If you have any questions contact info@socialexplorer.com
