@@ -20,7 +20,6 @@ int main() {
         allData.insert(allData.end(), data.begin(), data.end());
     }
     datasets.printData(allData);
-
     return 0;
 }
 
