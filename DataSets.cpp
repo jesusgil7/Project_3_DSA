@@ -34,10 +34,26 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
         getline(ss,word,',');
         state = word;
 
-        /// Deleting quotes after string
+        /// Deleting quotes after string for states
         if(!state.empty() && state.back() == '"')
         {
             state.pop_back();
+        }
+
+        if (!state.empty() && state.front() == '"')
+        {
+            state.erase(state.begin());
+        }
+
+        /// Deleting quotes after string for counties
+        if(!county.empty() && county.back() == '"')
+        {
+            state.pop_back();
+        }
+
+        if (!county.empty() && county.front() == '"')
+        {
+            county.erase(county.begin());
         }
 
         /// Deaths
@@ -65,6 +81,7 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
         /// Store the data in the vector
         data.emplace_back(make_tuple(county, state, deaths, population, year));
     }
+
     file.close();
     return data;
 }
@@ -82,7 +99,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
     /// If option 1 is selected
     if(input3 == "1")
     {
-        cout<<"Enter State: " << endl;
+        cout<<"Enter State (Example: Alabama) " << endl;
         string input2;
         getline(cin, input2);
 
@@ -92,6 +109,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
         /// Allow user to use lower case
         transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
 
+        bool found = false;
         for(auto entry : data)
         {
             /// State
@@ -104,10 +122,21 @@ void DataSets::printData(vector<TupleCancerData>& data)
             /// If User search for State
             if(input2 == state)
             {
+                string deaths = get<2>(entry);
+                string population = get<3>(entry);
+
+                if(deaths.empty())
+                {
+                    deaths = "N/A";
+                }
+                if(population.empty())
+                {
+                    population = "N/A";
+                }
                 cout<<"County: " <<get<0>(entry) << endl;
-                cout<<"State: " << get<1>(entry) << endl;
-                cout<<"Deaths: " << get<2>(entry) << endl;
-                cout<< "Population: " << get<3>(entry) << endl;
+                cout<<"State:" << get<1>(entry) << endl;
+                cout<<"Deaths: " << deaths << endl;
+                cout<< "Population: " << population << endl;
                 cout<< "Year: " << get<4>(entry) << endl;
                 cout<< "---------------------------------" << endl;
             }
@@ -117,11 +146,11 @@ void DataSets::printData(vector<TupleCancerData>& data)
     /// If option 2 is selected
     if(input3 == "2")
     {
-        cout<< "Enter County: " << endl;
+        cout<< "Enter County (Example: Autauga County): " << endl;
         string input;
         getline(cin, input);
 
-        cout<<"Enter State: " << endl;
+        cout<<"Enter State (Example: Alabama): " << endl;
         string input2;
         getline(cin, input2);
 
@@ -157,10 +186,22 @@ void DataSets::printData(vector<TupleCancerData>& data)
             /// If User search for County
             if(input2 == state && input == county)
             {
+
+                string deaths = get<2>(entry);
+                string population = get<3>(entry);
+
+                if(deaths.empty())
+                {
+                    deaths = "N/A";
+                }
+                if(population.empty())
+                {
+                    population = "N/A";
+                }
                 cout<<"County: " <<get<0>(entry) << endl;
                 cout<<"State: " << get<1>(entry) << endl;
-                cout<<"Deaths: " << get<2>(entry) << endl;
-                cout<< "Population: " << get<3>(entry) << endl;
+                cout<<"Deaths: " << deaths << endl;
+                cout<< "Population: " << population << endl;
                 cout<< "Year: " << get<4>(entry) << endl;
                 cout<< "---------------------------------" << endl;
             }
@@ -170,7 +211,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
     /// If option 3 is selected
     if(input3 == "3")
     {
-        cout<<"Enter Year: " << endl;
+        cout<<"Enter Year (Example: 2009)" << endl;
         string input4;
         getline(cin, input4);
 
@@ -192,14 +233,26 @@ void DataSets::printData(vector<TupleCancerData>& data)
             /// If User search for Year
             if(input4 == year)
             {
+                string deaths = get<2>(entry);
+                string population = get<3>(entry);
+
+                if(deaths.empty())
+                {
+                    deaths = "N/A";
+                }
+                if(population.empty())
+                {
+                    population = "N/A";
+                }
                 cout<<"County: " <<get<0>(entry) << endl;
                 cout<<"State: " << get<1>(entry) << endl;
-                cout<<"Deaths: " << get<2>(entry) << endl;
-                cout<< "Population: " << get<3>(entry) << endl;
+                cout<<"Deaths: " << deaths << endl;
+                cout<< "Population: " << population << endl;
                 cout<< "Year: " << get<4>(entry) << endl;
                 cout<< "---------------------------------" << endl;
             }
         }
     }
 }
+
 

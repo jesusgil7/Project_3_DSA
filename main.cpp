@@ -7,7 +7,7 @@ int main() {
     DataSets datasets;
     /// Constants for the base directory and file extension
     string baseDirectory = "data/"; /// Data path directory.
-    vector<string> filenames = {"dataSet2009.csv", "dataSet2010.csv", "dataSet2012.csv", "dataSet2013.csv"};
+    vector<string> filenames = {"dataSet2008.csv", "dataSet2009.csv", "dataSet2010.csv", "dataSet2011.csv", "dataSet2012.csv", "dataSet2013.csv"};
     vector<DataSets::TupleCancerData> allData;
 
     for(auto files : filenames)
