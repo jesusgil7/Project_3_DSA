@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="FinalProject_DSA"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FinalProject_DSA">
+				<Option output="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/FinalProject_DSA" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 FinalProject_DSA"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FinalProject_DSA/fast">
+				<Option output="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/FinalProject_DSA" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 FinalProject_DSA/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/juanpostiglione/CLionProjects/Project_3_DSA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/DataSets.cpp">
+			<Option target="FinalProject_DSA"/>
+		</Unit>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/DataSets.h">
+			<Option target="FinalProject_DSA"/>
+		</Unit>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/StatesGraph.cpp">
+			<Option target="FinalProject_DSA"/>
+		</Unit>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/StatesGraph.h">
+			<Option target="FinalProject_DSA"/>
+		</Unit>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/main.cpp">
+			<Option target="FinalProject_DSA"/>
+		</Unit>
+		<Unit filename="/Users/juanpostiglione/CLionProjects/Project_3_DSA/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
