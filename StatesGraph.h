@@ -8,48 +8,47 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utility>
 
 using namespace std;
 
 class StatesGraph
 {
-    private:
+private:
 
-        struct Node
-        {
-            string name;
-            vector<Node*> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
+    struct Node
+    {
+        string name;
+        vector<Node*> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
+        string population;
+        string numDeaths;
+        string numYear;
+        map<string, vector<pair<string, Node*>>> countiesMap;
 
-            string population = "";
-            string numDeaths = "";
+    };
 
-            map<string, Node*> countiesMap;
+    bool exit = false;
+    map<string, Node*> statesMap;
 
-        };
+    Node* graphHead = nullptr;
+    Node* graphCurrent = nullptr;
 
-        bool exit = false;
-        map<string, Node*> statesMap;
-        int year;
+public:
 
-        Node* graphHead = nullptr;
-        Node* graphCurrent = nullptr;
+    //Create a graph of all 50 US states with adjacent states having connections.
+    StatesGraph(vector<tuple<string, string, string, string,string>>& dataStream);
 
-    public:
+    //Recursively traverse through
+    void traverseGraph(int level);
 
-        //Create a graph of all 50 US states with adjacent states having connections.
-        StatesGraph(vector<tuple<string, string, string, string>>& dataStream);
+    //Print every county's data for the current US state.
+    void printState(Node*);
 
-        //Recursively traverse through 
-        void traverseGraph(int level);
+    //Iterate through the graph and print every county's data by US state.
+    void printAll();
 
-        //Print every county's data for the current US state.
-        void printState(Node*);
-
-        //Iterate through the graph and print every county's data by US state.
-        void printAll();
-
-        //Graph destructor.
-        ~StatesGraph();
+    //Graph destructor.
+    //~StatesGraph();
 
 };
 #endif //FINALPROJECT_DSA_STATESGRAPH_H
