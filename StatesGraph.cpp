@@ -1,85 +1,48 @@
-#pragma once
-
 #include "StatesGraph.h"
+#include <iostream>
 #include <vector>
 #include <map>
-#include <iostream>
 #include <tuple>
 
-StatesGraph::StatesGraph(vector<tuple<string, string, string, string>>& dataStream)
-{
-    string currentState = ""; //get from vector of tuples
-    int currentYear = 0; //get from vector of tuples
-    string currentCounty = "";
-
-    string currentPop = 0; //Population of current tuple.
-    string currentDeaths = 0; //# deaths of current tuple.
-
-    //Make head of graph. Any of the 50 states are accessible from here.
-    Node* head = new Node;
+StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& dataStream) {
+    Node* head = new Node; // Head node
     graphHead = head;
 
-    //Loop through the data stream.
-    for(int i = 0; i < dataStream.size(); i++)
-    {
-        currentState = get<1>(dataStream[i]);
-        currentCounty = get<0>(dataStream[i]);
+    for (const auto& entry : dataStream) {
+        string currentCounty = get<0>(entry);
+        string currentState = get<1>(entry);
+        string currentDeaths = get<2>(entry);
+        string currentPop = get<3>(entry);
+        string currentYear = get<4>(entry);
 
-        currentPop = get<3>(dataStream[i]);
-        currentDeaths = get<2>(dataStream[i]);
-
-        //If the state isn't in the graph, add it as a new Node.
-        if(statesMap.find(currentState) == statesMap.end())
-        {
-            //Add new state to the graph & update values.
-            Node* newState = new Node;
+        // Check if the state exists, and add if not
+        if (statesMap.find(currentState) == statesMap.end()) {
+            Node* newState = new Node{name: currentState};
             head->subNodes.push_back(newState);
-
-            newState->name = currentState;
-
-            //transform(currentState.begin(), currentState.end(), currentState.begin(), ::tolower);
-
-            //Add new state to the list of states in the graph.
-            statesMap[currentState] = newState;    
+            statesMap[currentState] = newState;
         }
 
-        //If the county isn't in the graph, add it as a new Node pointed to by the state Node.
-        if(statesMap[currentState]->countiesMap.find(currentCounty) == statesMap.end())
-        {
-            //Add new county to the graph & update values.
-            Node* newCounty = new Node;
-            statesMap[currentState]->subNodes.push_back(newCounty);
-            newCounty->name = currentCounty;
+        // Access state node
+        Node* stateNode = statesMap[currentState];
 
-            //transform(currentCounty.begin(), currentCounty.end(), currentCounty.begin(), ::tolower);
-
-            //Add new county to the list of states in the graph.
-            statesMap[currentState]->countiesMap[currentCounty] = newCounty;    
-
-            //Add a new Node for each of the 4 years
-            Node* year09 = new Node;
-            year09->name = "2009";
-
-            Node* year10 = new Node;
-            year10->name = "2010";
-
-            Node* year12 = new Node;
-            year12->name = "2012";
-
-            Node* year13 = new Node;
-            year13->name = "2013";
-
-            newCounty->subNodes.push_back(year09);
-            newCounty->subNodes.push_back(year10);
-            newCounty->subNodes.push_back(year12);
-            newCounty->subNodes.push_back(year13);
+        // Check for existing county and year
+        bool found = false;
+        for (auto& pair : stateNode->countiesMap[currentCounty]) {
+            if (pair.first == currentYear) { // Year exists
+                found = true;
+                break;
+            }
         }
 
-        statesMap[currentState]->countiesMap[currentCounty]->population = currentPop;
-        statesMap[currentState]->countiesMap[currentCounty]->numDeaths = currentDeaths;
+        // If not found, add new county with year
+        if (!found) {
+            Node* newCounty = new Node{name: currentCounty, population: currentPop, numDeaths: currentDeaths, numYear: currentYear};
+            stateNode->subNodes.push_back(newCounty);
+            stateNode->countiesMap[currentCounty].emplace_back(currentYear, newCounty);
+        }
     }
 }
-
+/***
 //Recursively traverse the graph. Initial call from main() should be: traverseGraph(0);
 void StatesGraph::traverseGraph(int level)
 {
@@ -108,13 +71,7 @@ void StatesGraph::traverseGraph(int level)
                 exit = true;
             }
 
-            /*
-            /// Delete whitespaces
-            input.erase(remove_if(input.begin(), input.end(), ::isspace), input.end());
 
-            /// Allow user to use lower case
-            transform(input.begin(), input.end(), input.begin(), ::tolower);
-            */
         }
 
         //Reset exit for next graph traversal.
@@ -175,18 +132,27 @@ void StatesGraph::traverseGraph(int level)
         }
     }
 }
+***/
 
 //Print each county in the specified state in alphabetical order.
 void StatesGraph::printState(Node* state)
 {
-    map<string, Node*>::iterator iter;
+    map<string, vector<pair<string, Node*>>>::iterator iter;
 
     for(iter = state->countiesMap.begin(); iter != state->countiesMap.end(); iter++)
     {
-        cout<<"\tCounty: " << iter->second->name << endl;
-        cout<<"\tDeaths: " << iter->second->numDeaths << endl;
-        cout<< "\tPopulation: " << iter->second->population << endl;
-        cout<< "\t---------------------------------" << endl;
+        cout << iter->first << endl;
+        const auto& counties = iter->second;
+
+        for (const auto& county : counties) {
+            const std::string& year = county.first;  // Year as string
+            const Node* node = county.second;  // Pointer to the Node structure
+
+            std::cout << "\tYear: " << year << std::endl;
+            std::cout << "\tPopulation: " << node->population << std::endl;
+            std::cout << "\tDeaths: " << node->numDeaths << std::endl;
+            std::cout << "\t---------------------------------" << std::endl;
+        }
     }
 }
 
@@ -194,14 +160,13 @@ void StatesGraph::printState(Node* state)
 void StatesGraph::printAll()
 {
     map<string, Node*>::iterator iter;
-
     for(iter = statesMap.begin(); iter != statesMap.end(); iter++)
     {
         cout << "State: " << iter->second->name << endl;
         printState(iter->second); //Print each county in the state in alphabetical order.
     }
 }
-
+/***
 //Graph destructor.
 StatesGraph::~StatesGraph()
 {
@@ -217,4 +182,4 @@ StatesGraph::~StatesGraph()
 
         delete iter->second;
     }
-}
+}***/
