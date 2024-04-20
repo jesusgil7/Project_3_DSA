@@ -65,7 +65,6 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
         /// Store the data in the vector
         data.emplace_back(make_tuple(county, state, deaths, population, year));
     }
-
     file.close();
     return data;
 }
