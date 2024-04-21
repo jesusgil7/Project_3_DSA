@@ -1,4 +1,5 @@
 #include "DataSets.h"
+#include <chrono>
 
 /// Function to read the files
 vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
@@ -99,6 +100,8 @@ void DataSets::printData(vector<TupleCancerData>& data)
     /// If option 1 is selected
     if(input3 == "1")
     {
+        auto start = std::chrono::high_resolution_clock::now();
+
         cout<<"Enter State (Example: Alabama) " << endl;
         string input2;
         getline(cin, input2);
@@ -141,6 +144,9 @@ void DataSets::printData(vector<TupleCancerData>& data)
                 cout<< "---------------------------------" << endl;
             }
         }
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+        std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
     }
 
     /// If option 2 is selected
@@ -166,6 +172,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
         /// Allow user to use lower case
         transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
 
+        auto start = std::chrono::high_resolution_clock::now();
         for(auto entry : data)
         {
 
@@ -206,6 +213,9 @@ void DataSets::printData(vector<TupleCancerData>& data)
                 cout<< "---------------------------------" << endl;
             }
         }
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto durationNano = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+        std::cout << "Time taken by function: " << durationNano.count() << " nanoseconds" << std::endl;
     }
 
     /// If option 3 is selected

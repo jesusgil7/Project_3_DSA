@@ -10,6 +10,7 @@
 #include <map>
 #include <utility>
 
+
 using namespace std;
 
 class StatesGraph
@@ -46,6 +47,10 @@ public:
 
     //Iterate through the graph and print every county's data by US state.
     void printAll();
+
+    void findState();
+    void findCounty();
+    void findYear();
 
     //Graph destructor.
     //~StatesGraph();

@@ -1,4 +1,5 @@
 #include "DataSets.h"
+#include "StatesGraph.h"
 
 using namespace std;
 
@@ -19,7 +20,38 @@ int main() {
         vector<DataSets::TupleCancerData> data = datasets.readData(filename);
         allData.insert(allData.end(), data.begin(), data.end());
     }
-    datasets.printData(allData);
+    StatesGraph graph(allData);
+    while(true){
+        string type;
+        cout << "How do you want to read the data? Graph or Directly" <<endl;
+        getline(cin,type);
+
+        if(type == "Graph") {
+            string input;
+            cout << "1) Search by State (Enter 1)" << endl;
+            cout << "2) Search by County (Enter 2)" << endl;
+            cout << "3) Search by Year (Enter 3)" << endl;
+            getline(cin, input);
+            if (input == "1") {
+                graph.findState();
+            } else if (input == "2") {
+                graph.findCounty();
+            } else if (input == "3") {
+                graph.findYear();
+            } else {
+                cout << "Invalid Option. Try Again" << endl;
+            }
+        }
+        else if (type == "Directly"){
+            datasets.printData(allData);
+        }
+    }
+
+
+
+
+
+
     return 0;
 }
 
