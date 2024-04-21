@@ -4,6 +4,7 @@
 #include <map>
 #include <tuple>
 #include <chrono>
+
 StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& dataStream) {
     Node* head = new Node; // Head node
     graphHead = head;

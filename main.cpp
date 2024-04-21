@@ -1,5 +1,6 @@
 #include "DataSets.h"
 #include "StatesGraph.h"
+#include "AdjacencyMatrix.h"
 
 using namespace std;
 
