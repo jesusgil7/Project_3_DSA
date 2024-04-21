@@ -43,6 +43,7 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
         }
     }
 }
+
 /***
 //Recursively traverse the graph. Initial call from main() should be: traverseGraph(0);
 void StatesGraph::traverseGraph(int level)
@@ -165,6 +166,75 @@ void StatesGraph::printAll()
     {
         cout << "State:" << iter->second->name << endl;
         printState(iter->second); //Print each county in the state in alphabetical order.
+    }
+}
+
+//Connect all 50 states to show that they are the same type of entity.
+void StatesGraph::connectStates()
+{
+    map<string, Node*>::iterator iter1;
+    map<string, Node*>::iterator iter2;
+
+    //Each state is connected to each other state.
+    for(iter1 = statesMap.begin(); iter1 != statesMap.end(); iter1++)
+    {
+        for(iter2 = iter1 + 1; iter2 != statesMap.end(); iter2++)
+        {
+            iter1->second->adjacentNodes.push_back(iter2->second);
+            iter2->second->adjacentNodes.push_back(iter1->second);
+        }
+
+        connectCounties(iter1->second->countiesMap);
+    }
+}
+
+//Connect counties within each state to show that they are related. Nodes are only connected if they are from the same year.
+void StatesGraph::connectCounties(map<string, vector<pair<string, Node*>>>& allCounties)
+{
+    map<string, Node*>::iterator iter1;
+    map<string, Node*>::iterator iter2;
+
+    vector<string> years{2009, 2010, 2012, 2013};
+    string year = years[0];
+
+    Node* currentNode = nullptr;
+
+    for(int i = 0; i < 4; i++)
+    {
+        year = years[i]
+        bool found = false;
+        
+        //Each county Node is connected to each other county Node within the same year.
+        for(iter1 = allCounties.begin(); iter1 != allCounties.end(); iter1++)
+        {
+            //Find this county's node for the current year
+            for (auto& pair : iter1) 
+            {
+                if (pair.first == year)  // Year exists
+                {
+                    currentNode = pair.second;
+                    found = true;
+                    break;
+                }
+            }
+
+            if(found)
+            {
+                for(iter2 = iter1 + 1; iter2 != allCounties.end(); iter2++)
+                {
+                    for (auto& pair : iter2) 
+                    {
+                        if (pair.first == currentYear)  // Year exists
+                        {
+                            // Nodes only connect to nodes that share the same year.
+                            currentNode->adjacentNodes.push_back(pair.second);
+                            pair.second->adjacentNodes.push_back(currentNode);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

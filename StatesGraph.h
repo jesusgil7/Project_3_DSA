@@ -21,6 +21,7 @@ private:
     {
         string name;
         vector<Node*> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
+        vector<Node*> adjacentNodes; //State points to other states, county points to other counties within state.
         string population;
         string numDeaths;
         string numYear;
@@ -36,7 +37,7 @@ private:
 
 public:
 
-    //Create a graph of all 50 US states with adjacent states having connections.
+    //Create a graph of all 50 US states with states having connections to one another and counties within each state having connections.
     StatesGraph(vector<tuple<string, string, string, string,string>>& dataStream);
 
     //Recursively traverse through
@@ -48,6 +49,13 @@ public:
     //Iterate through the graph and print every county's data by US state.
     void printAll();
 
+    //Connect all 50 states to show that they are the same type of entity.
+    void connectStates();
+
+    //Connect counties within each state to show that they are related.
+    void connectCounties(map<string, vector<pair<string, Node*>>>& allCounties);
+
+    //Print graph data.
     void findState();
     void findCounty();
     void findYear();
