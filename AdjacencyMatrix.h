@@ -17,16 +17,18 @@ using namespace std;
 class AdjacencyMatrix
 {
     private:
-        int adjMatrix[numNodes][numNodes];  // graph[from][to]
+        vector<vector<int>> adjMatrix;
 
 
     public:
 
         AdjacencyMatrix(int numNodes);  // Construct empty adjacency matrix (all values are 0) of size = numNodes.
 
-        void fillMatrix(Node* head);
+        void fillMatrix(Node* head);   //Recursively pass through the graph and update the adjacency matrix
 
-        vector<vector<int>> adjMatrix 
+        vector<vector<int>> getMatrix();   //Return the adjacency matrix
+
+        void printMatrix();  //Print the adjacency matrix
 
 
 };

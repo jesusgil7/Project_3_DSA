@@ -8,8 +8,9 @@
 StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& dataStream) {
     Node* head = new Node; // Head node
     graphHead = head;
+
     numNodes++;
-    head->nodeID = numNodes;
+    head->nodeID = numNodes; //Give each new node its unique ID
 
     for (const auto& entry : dataStream) {
         string currentCounty = get<0>(entry);
@@ -53,6 +54,10 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
     }
 
     connectStates();
+
+    ///   Call adjacency matrix
+    //AdjacencyMatrix newMatrix(numNodes);
+    //newMatrix.fillMatrix(graphHead);
 }
 
 /***
@@ -370,6 +375,16 @@ void StatesGraph::findYear() {
         auto durationNano = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
         std::cout << "Time taken by function: " << durationNano.count() << " nanoseconds" << std::endl;
     }
+}
+
+int StatesGraph::getNodeCount()
+{
+    return numNodes;
+}
+
+Node* StatesGraph::getGraphHead()
+{
+    return graphHead;
 }
 
 /***

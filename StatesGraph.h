@@ -20,7 +20,7 @@ private:
     struct Node
     {
         string name;
-        vector<Node*> subNodes; //Head -> States -> Counties -> Year -> Population & Deaths
+        vector<Node*> subNodes; //Head -> States -> (by year) Counties
         vector<Node*> adjacentNodes; //State points to other states, county points to other counties within state.
         string population;
         string numDeaths;
@@ -62,6 +62,9 @@ public:
     void findState();
     void findCounty();
     void findYear();
+
+    int getNodeCount();
+    Node* getGraphHead();
 
     //Graph destructor.
     //~StatesGraph();
