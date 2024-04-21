@@ -54,5 +54,6 @@ void AdjacencyMatrix::printMatrix()
         }
         cout << ';' << endl;  //Separator used to make clear where a new line happens.
     }
+    cout << "-----------------------------" << endl;
 }
    

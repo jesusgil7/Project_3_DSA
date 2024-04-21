@@ -19,6 +19,15 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
         string currentPop = get<3>(entry);
         string currentYear = get<4>(entry);
 
+        // N/A if data does not exist for this field.
+        if(currentDeaths.empty())
+        {
+            currentDeaths = "N/A";
+        }
+        if(currentPop.empty())
+        {
+            currentPop = "N/A";
+        }
 
         // Check if the state exists, and add if not
         if (statesMap.find(currentState) == statesMap.end()) {
