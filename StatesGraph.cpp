@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <tuple>
-
+#include <chrono>
 StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& dataStream) {
     Node* head = new Node; // Head node
     graphHead = head;
@@ -14,6 +14,7 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
         string currentDeaths = get<2>(entry);
         string currentPop = get<3>(entry);
         string currentYear = get<4>(entry);
+
 
         // Check if the state exists, and add if not
         if (statesMap.find(currentState) == statesMap.end()) {
@@ -162,10 +163,134 @@ void StatesGraph::printAll()
     map<string, Node*>::iterator iter;
     for(iter = statesMap.begin(); iter != statesMap.end(); iter++)
     {
-        cout << "State: " << iter->second->name << endl;
+        cout << "State:" << iter->second->name << endl;
         printState(iter->second); //Print each county in the state in alphabetical order.
     }
 }
+
+void StatesGraph::findState(){
+    auto start = std::chrono::high_resolution_clock::now();
+    string state;
+    cout << "Choose a State" << endl;
+    getline(cin,state);
+    auto it = statesMap.find(state);
+    if (it != statesMap.end()) {
+        printState(it->second);
+    } else {
+        std::cout << "State not found." << '\n';
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
+}
+
+void StatesGraph::findCounty() {
+    string state;
+    cout << "Choose a State" << endl;
+    getline(cin,state);
+
+    string county;
+    cout << "Choose a County" << endl;
+    getline(cin,county);
+
+    string year;
+    cout << "Choose a Year: 2008, 2009, 2010, 2011, 2012, 2013. (Write \"All\" to print all years)"<< endl;
+    getline(cin,year);
+    auto start = std::chrono::high_resolution_clock::now();
+    auto stateIter = statesMap.find(state);
+    if (stateIter != statesMap.end()) {
+
+        Node* stateNode = stateIter->second;
+        auto countyIter = stateNode->countiesMap.find(county);
+        if (countyIter != stateNode->countiesMap.end()) {
+            cout << county << " in state: " << state << endl;
+            for (const auto& yearPair : countyIter->second) {
+                if(yearPair.first == year){
+                    cout << "Population: " << yearPair.second->population <<endl;
+                    cout << "Deaths: " << yearPair.second->numDeaths << endl;
+                    cout << "-----------------------------" << endl;
+                }
+                else if(year == "All"){
+                    cout << "Population: " << yearPair.second->population <<endl;
+                    cout << "Deaths: " << yearPair.second->numDeaths << endl;
+                    cout << "Year: " << yearPair.first <<endl;
+                    cout << "-----------------------------" << endl;
+                }
+            }
+        } else {
+            cout << "County " << county << " not found in state " << county << endl;
+        }
+    } else {
+        cout << "State " << state << " not found." << endl;
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto durationNano = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+    std::cout << "Time taken by function: " << durationNano.count() << " nanoseconds" << std::endl;
+
+}
+
+void StatesGraph::findYear() {
+    string year;
+    cout << "Choose a Year: 2008, 2009, 2010, 2011, 2012, 2013. (Write \"All\" to print all years)"<< endl;
+    getline(cin,year);
+    map<string, Node*>::iterator iter;
+
+
+    string stateName;
+    cout << "Choose a State: (Write \"All\" to print all the states)" << endl;
+    getline(cin,stateName);
+
+    auto start = std::chrono::high_resolution_clock::now();
+    if(stateName == "All") {
+        for (auto &State: statesMap) {
+            cout << "State:" << State.second->name << endl;
+            for (auto &countyPair: State.second->countiesMap) {
+                cout << "County: " << countyPair.first << endl;
+
+                for (const auto &yearData: countyPair.second) {
+                    const string &dataYear = yearData.first;
+                    const Node *node = yearData.second;
+
+                    // Check if the user input matches the data year or if the user wants all years
+                    if (year == dataYear || year == "All") {
+                        cout << "\tYear: " << dataYear << endl;
+                        cout << "\tPopulation: " << node->population << endl;
+                        cout << "\tDeaths: " << node->numDeaths << endl;
+                        cout << "\t---------------------------------" << endl;
+                    }
+                }
+            }
+        }
+    }
+    else {
+        auto stateIter = statesMap.find(stateName);
+        if (stateIter != statesMap.end()) {
+            cout << "State:" << stateIter->second->name << endl;
+            for (auto &countyPair: stateIter->second->countiesMap) {
+                cout << "County: " << countyPair.first << endl;
+
+                for (const auto &yearData: countyPair.second) {
+                    const string &dataYear = yearData.first;
+                    const Node *node = yearData.second;
+
+                    // Check if the user input matches the data year or if the user wants all years
+                    if (year == dataYear || year == "All") {
+                        cout << "\tYear: " << dataYear << endl;
+                        cout << "\tPopulation: " << node->population << endl;
+                        cout << "\tDeaths: " << node->numDeaths << endl;
+                        cout << "\t---------------------------------" << endl;
+                    }
+                }
+            }
+        } else{
+            cout << "Not found "<< endl;
+        }
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto durationNano = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+        std::cout << "Time taken by function: " << durationNano.count() << " nanoseconds" << std::endl;
+    }
+}
+
 /***
 //Graph destructor.
 StatesGraph::~StatesGraph()
