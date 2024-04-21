@@ -5,7 +5,7 @@
 #include <tuple>
 #include <chrono>
 
-AdjacencyMatrix::AdjacencyMatrix() 
+AdjacencyMatrix::AdjacencyMatrix(int numNodes) 
 {
 
 }

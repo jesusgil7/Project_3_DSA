@@ -8,6 +8,8 @@
 StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& dataStream) {
     Node* head = new Node; // Head node
     graphHead = head;
+    numNodes++;
+    head->nodeID = numNodes;
 
     for (const auto& entry : dataStream) {
         string currentCounty = get<0>(entry);
@@ -22,6 +24,9 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
             Node* newState = new Node{name: currentState};
             head->subNodes.push_back(newState);
             statesMap[currentState] = newState;
+
+            numNodes++;
+            newState->nodeID = numNodes;
         }
 
         // Access state node
@@ -41,8 +46,13 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
             Node* newCounty = new Node{name: currentCounty, population: currentPop, numDeaths: currentDeaths, numYear: currentYear};
             stateNode->subNodes.push_back(newCounty);
             stateNode->countiesMap[currentCounty].emplace_back(currentYear, newCounty);
+
+            numNodes++;
+            newCounty->nodeID = numNodes;
         }
     }
+
+    connectStates();
 }
 
 /***

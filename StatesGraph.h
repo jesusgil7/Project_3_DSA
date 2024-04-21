@@ -26,6 +26,7 @@ private:
         string numDeaths;
         string numYear;
         map<string, vector<pair<string, Node*>>> countiesMap;
+        int nodeID; //Each node gets a unique ID
 
     };
 
@@ -34,6 +35,8 @@ private:
 
     Node* graphHead = nullptr;
     Node* graphCurrent = nullptr;
+
+    int numNodes = 0;
 
 public:
 
