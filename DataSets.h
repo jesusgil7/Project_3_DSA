@@ -3,6 +3,8 @@
 #include <tuple>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <cctype>
 #include <vector>
 #pragma once
 
