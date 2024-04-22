@@ -7,7 +7,7 @@ int main() {
 
     DataSets datasets;
     /// Constants for the base directory and file extension.
-    string baseDirectory = "C:\\Users\\david\\Documents\\Homework\\Spring_2024\\COP3530\\Project_3_DH\\data\\"; /// Data path directory.
+    string baseDirectory = "data/"; /// Data path directory.
     vector<string> filenames = {"dataSet2008.csv" , "dataSet2009.csv", "dataSet2010.csv", "dataSet2011.csv", "dataSet2012.csv", "dataSet2013.csv"};
     vector<string> years = { "2008", "2009", "2010", "2011", "2012", "2013" };
     vector<DataSets::TupleCancerData> allData;
