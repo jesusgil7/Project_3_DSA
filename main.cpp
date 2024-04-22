@@ -7,18 +7,25 @@ int main() {
 
     DataSets datasets;
     /// Constants for the base directory and file extension.
-    string baseDirectory = "data/"; /// Data path directory.
+    string baseDirectory = "C:\\Users\\david\\Documents\\Homework\\Spring_2024\\COP3530\\Project_3_DH\\data\\"; /// Data path directory.
     vector<string> filenames = {"dataSet2008.csv" , "dataSet2009.csv", "dataSet2010.csv", "dataSet2011.csv", "dataSet2012.csv", "dataSet2013.csv"};
+    vector<string> years = { "2008", "2009", "2010", "2011", "2012", "2013" };
     vector<DataSets::TupleCancerData> allData;
+
+    int i = 0;
 
     for(auto files : filenames)
     {
         /// Get the full file path using the base directory and file extension
         string filename = baseDirectory + files;
+        cout << filename << endl;
 
         /// Read and process the data from the specified file
-        vector<DataSets::TupleCancerData> data = datasets.readData(filename);
+        vector<DataSets::TupleCancerData> data = datasets.readData(filename, years[i]);
         allData.insert(allData.end(), data.begin(), data.end());
+
+        i++;
+        cout << "done! " << endl;
     }
 
     /// Create the graph and get necessary values
@@ -27,6 +34,7 @@ int main() {
     while(true){
         string type;
         cout << "How do you want to read the data? Graph or Directly" <<endl;
+        cout << "Enter \"Exit\" to quit" << endl;
         getline(cin,type);
 
         if(type == "Graph") {
@@ -34,7 +42,7 @@ int main() {
             cout << "1) Search by State (Enter 1)" << endl;
             cout << "2) Search by County (Enter 2)" << endl;
             cout << "3) Search by Year (Enter 3)" << endl;
-            cout << "3) Display Adjacency Matrix (Enter 4)" << endl;
+            cout << "4) Display Adjacency Matrix (Enter 4)" << endl;
             getline(cin, input);
             if (input == "1") {
                 graph.findState();
@@ -50,6 +58,10 @@ int main() {
         }
         else if (type == "Directly"){
             datasets.printData(allData);
+        }
+        else if (type == "Exit")
+        {
+            break;
         }
     }
 

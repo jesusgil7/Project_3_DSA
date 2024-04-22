@@ -26,8 +26,7 @@ private:
         string numDeaths = "N/A";
         string numYear;
         map<string, vector<pair<string, Node*>>> countiesMap;
-        int nodeID; //Each node gets a unique ID
-        bool visited = false;
+        int nodeID = 0; //Each node gets a unique ID
 
     };
 

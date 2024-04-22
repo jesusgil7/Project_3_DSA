@@ -2,7 +2,7 @@
 #include <chrono>
 
 /// Function to read the files
-vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
+vector<DataSets::TupleCancerData> DataSets::readData(string& filename, string& fileYear)
 {
     /// Vector of tuples to store the data
     vector<TupleCancerData> data;
@@ -45,11 +45,12 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
         {
             state.erase(state.begin());
         }
+        state.erase(state.begin());
 
         /// Deleting quotes after string for counties
         if(!county.empty() && county.back() == '"')
         {
-            state.pop_back();
+            county.pop_back();
         }
 
         if (!county.empty() && county.front() == '"')
@@ -71,12 +72,14 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename)
         }
         population = word;
 
-        /// Year
+        /// Year 
+        /*
         for(int i = 0; i < 19; i++)
         {
             getline(ss, word, ',');
-        }
-        year = word;
+        } 
+        */
+        year = fileYear;
         year.erase(remove(year.begin(), year.end(), '\r'), year.end());
 
         /// Store the data in the vector
@@ -94,7 +97,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
     string input3;
     cout<<"1) Search by State (Enter 1)" << endl;
     cout<<"2) Search by County (Enter 2)" << endl;
-    cout<<"3) Search by year (Enter 3)" << endl;
+    cout<<"3) Search by Year (Enter 3)" << endl;
     getline(cin,input3);
 
     /// If option 1 is selected
@@ -107,10 +110,10 @@ void DataSets::printData(vector<TupleCancerData>& data)
         getline(cin, input2);
 
         /// Delete whitespaces
-        input2.erase(remove_if(input2.begin(), input2.end(), ::isspace), input2.end());
+        //input2.erase(remove_if(input2.begin(), input2.end(), ::isspace), input2.end());
 
         /// Allow user to use lower case
-        transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
+        //transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
 
         bool found = false;
         for(auto entry : data)
@@ -118,9 +121,9 @@ void DataSets::printData(vector<TupleCancerData>& data)
             /// State
             string state = get<1>(entry);
             /// Erase whitespaces
-            state.erase(remove_if(state.begin(), state.end(), ::isspace), state.end());
+            //state.erase(remove_if(state.begin(), state.end(), ::isspace), state.end());
             /// Allow lowercase
-            transform(state.begin(), state.end(), state.begin(), ::tolower);
+            //transform(state.begin(), state.end(), state.begin(), ::tolower);
 
             /// If User search for State
             if(input2 == state)
@@ -137,7 +140,7 @@ void DataSets::printData(vector<TupleCancerData>& data)
                     population = "N/A";
                 }
                 cout<<"County: " <<get<0>(entry) << endl;
-                cout<<"State:" << get<1>(entry) << endl;
+                cout<<"State: " << get<1>(entry) << endl;
                 cout<<"Deaths: " << deaths << endl;
                 cout<< "Population: " << population << endl;
                 cout<< "Year: " << get<4>(entry) << endl;
@@ -161,16 +164,16 @@ void DataSets::printData(vector<TupleCancerData>& data)
         getline(cin, input2);
 
         /// Delete whitespaces
-        input.erase(remove_if(input.begin(), input.end(), ::isspace), input.end());
+        //input.erase(remove_if(input.begin(), input.end(), ::isspace), input.end());
 
         /// Allow user to use lower case
-        transform(input.begin(), input.end(), input.begin(), ::tolower);
+        //transform(input.begin(), input.end(), input.begin(), ::tolower);
 
         /// Delete whitespaces
-        input2.erase(remove_if(input2.begin(), input2.end(), ::isspace), input2.end());
+        //input2.erase(remove_if(input2.begin(), input2.end(), ::isspace), input2.end());
 
         /// Allow user to use lower case
-        transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
+        //transform(input2.begin(), input2.end(), input2.begin(), ::tolower);
 
         auto start = std::chrono::high_resolution_clock::now();
         for(auto entry : data)
@@ -179,16 +182,16 @@ void DataSets::printData(vector<TupleCancerData>& data)
             /// State
             string state = get<1>(entry);
             /// Erase whitespaces
-            state.erase(remove_if(state.begin(), state.end(), ::isspace), state.end());
+            //state.erase(remove_if(state.begin(), state.end(), ::isspace), state.end());
             /// Allow lowercase
-            transform(state.begin(), state.end(), state.begin(), ::tolower);
+            //transform(state.begin(), state.end(), state.begin(), ::tolower);
 
             /// County
             string county = get<0>(entry);
             /// Erase whitespaces
-            county.erase(remove_if(county.begin(), county.end(), ::isspace), input.end());
+            //county.erase(remove_if(county.begin(), county.end(), ::isspace), input.end());
             /// Allow lowercase
-            transform(county.begin(), county.end(), county.begin(), ::tolower);
+            //transform(county.begin(), county.end(), county.begin(), ::tolower);
 
             /// If User search for County
             if(input2 == state && input == county)
