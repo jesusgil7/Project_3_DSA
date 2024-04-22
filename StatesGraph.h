@@ -9,7 +9,7 @@
 #include <vector>
 #include <map>
 #include <utility>
-
+#include "DataSets.h"
 
 using namespace std;
 
@@ -38,6 +38,8 @@ private:
 
     int numNodes = 0;
 
+    vector<vector<int>> adjMatrix;
+
 public:
 
     //Create a graph of all 50 US states with states having connections to one another and counties within each state having connections.
@@ -63,8 +65,13 @@ public:
     void findCounty();
     void findYear();
 
-    int getNodeCount();
-    Node* getGraphHead();
+    void emptyMatrix(int nodeCount);  // Construct empty adjacency matrix (all values are 0) of size = numNodes.
+
+    void fillMatrix(Node* head);   //Recursively pass through the graph and update the adjacency matrix
+
+    vector<vector<int>> getMatrix();   //Return the adjacency matrix
+
+    void printMatrix();  //Print the adjacency matrix
 
     //Graph destructor.
     //~StatesGraph();

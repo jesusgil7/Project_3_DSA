@@ -1,6 +1,5 @@
 #include "DataSets.h"
 #include "StatesGraph.h"
-#include "AdjacencyMatrix.h"
 
 using namespace std;
 
@@ -24,12 +23,6 @@ int main() {
 
     /// Create the graph and get necessary values
     StatesGraph graph(allData);
-    int nodeCount = graph.getNodeCount;
-    Node* graphHead = graph.getGraphHead;
-
-    /// Call adjacency matrix
-    AdjacencyMatrix newMatrix(nodeCount);
-    newMatrix.fillMatrix(graphHead);
 
     while(true){
         string type;
@@ -50,7 +43,7 @@ int main() {
             } else if (input == "3") {
                 graph.findYear();
             } else if (input == "4") {
-                newMatrix.printMatrix();
+                graph.printMatrix();
             } else {
                 cout << "Invalid Option. Try Again" << endl;
             }

@@ -31,7 +31,10 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
 
         // Check if the state exists, and add if not
         if (statesMap.find(currentState) == statesMap.end()) {
-            Node* newState = new Node{name: currentState};
+            Node* newState = new Node;
+            newState->name = currentState;
+
+
             head->subNodes.push_back(newState);
             statesMap[currentState] = newState;
 
@@ -53,7 +56,12 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
 
         // If not found, add new county with year
         if (!found) {
-            Node* newCounty = new Node{name: currentCounty, population: currentPop, numDeaths: currentDeaths, numYear: currentYear};
+            Node* newCounty = new Node;
+            newCounty->name = currentCounty;
+            newCounty->population = currentPop;
+            newCounty->numDeaths = currentDeaths;
+            newCounty->numYear = currentYear;
+
             stateNode->subNodes.push_back(newCounty);
             stateNode->countiesMap[currentCounty].emplace_back(currentYear, newCounty);
 
@@ -65,8 +73,8 @@ StatesGraph::StatesGraph(vector<tuple<string, string, string, string, string>>& 
     connectStates();
 
     ///   Call adjacency matrix
-    //AdjacencyMatrix newMatrix(numNodes);
-    //newMatrix.fillMatrix(graphHead);
+    emptyMatrix(numNodes);
+    fillMatrix(graphHead);
 }
 
 /***
@@ -203,10 +211,13 @@ void StatesGraph::connectStates()
     //Each state is connected to each other state.
     for(iter1 = statesMap.begin(); iter1 != statesMap.end(); iter1++)
     {
-        for(iter2 = iter1 + 1; iter2 != statesMap.end(); iter2++)
+        for(iter2 = iter1; iter2 != statesMap.end(); iter2++)
         {
-            iter1->second->adjacentNodes.push_back(iter2->second);
-            iter2->second->adjacentNodes.push_back(iter1->second);
+            if(iter1->second->nodeID != iter2->second->nodeID)
+            {
+                iter1->second->adjacentNodes.push_back(iter2->second);
+                iter2->second->adjacentNodes.push_back(iter1->second);
+            }
         }
 
         connectCounties(iter1->second->countiesMap);
@@ -216,24 +227,24 @@ void StatesGraph::connectStates()
 //Connect counties within each state to show that they are related. Nodes are only connected if they are from the same year.
 void StatesGraph::connectCounties(map<string, vector<pair<string, Node*>>>& allCounties)
 {
-    map<string, Node*>::iterator iter1;
-    map<string, Node*>::iterator iter2;
+    map<string, vector<pair<string, Node*>>>::iterator iter1;
+    map<string, vector<pair<string, Node*>>>::iterator iter2;
 
-    vector<string> years{2009, 2010, 2012, 2013};
+    vector<string> years{"2009", "2010", "2012", "2013"};
     string year = years[0];
 
     Node* currentNode = nullptr;
 
     for(int i = 0; i < 4; i++)
     {
-        year = years[i]
+        year = years[i];
         bool found = false;
         
         //Each county Node is connected to each other county Node within the same year.
         for(iter1 = allCounties.begin(); iter1 != allCounties.end(); iter1++)
         {
             //Find this county's node for the current year
-            for (auto& pair : iter1) 
+            for (auto& pair : iter1->second) 
             {
                 if (pair.first == year)  // Year exists
                 {
@@ -245,11 +256,11 @@ void StatesGraph::connectCounties(map<string, vector<pair<string, Node*>>>& allC
 
             if(found)
             {
-                for(iter2 = iter1 + 1; iter2 != allCounties.end(); iter2++)
+                for(iter2 = iter1; iter2 != allCounties.end(); iter2++)
                 {
-                    for (auto& pair : iter2) 
+                    for (auto& pair : iter2->second) 
                     {
-                        if (pair.first == currentYear)  // Year exists
+                        if (pair.first == year && iter1 != iter2)  // Year exists
                         {
                             // Nodes only connect to nodes that share the same year.
                             currentNode->adjacentNodes.push_back(pair.second);
@@ -386,15 +397,58 @@ void StatesGraph::findYear() {
     }
 }
 
-int StatesGraph::getNodeCount()
+void StatesGraph::emptyMatrix(int nodeCount) 
 {
-    return numNodes;
+    for(int i = 0; i < nodeCount; i++)
+    {
+        vector<int> weights;
+        for(int j = 0; j < nodeCount; j++)
+        {
+            weights.push_back(0);
+        }
+        adjMatrix.push_back(weights);
+    }
 }
 
-Node* StatesGraph::getGraphHead()
+//Recursively pass through the graph and update the adjacency matrix
+void StatesGraph::fillMatrix(Node* head)
 {
-    return graphHead;
+    for(int i = 0; i < head->subNodes.size(); i++)
+    {
+        adjMatrix[head->nodeID][head->subNodes[i]->nodeID] = 1; // Graph[from][to] = 1 if there is a path and 0 otherwise.
+        fillMatrix(head->subNodes[i]); //Recursively visit each other node.
+    }
+    for(int j = 0; j < head->adjacentNodes.size(); j++)
+    {
+        adjMatrix[head->nodeID][head->adjacentNodes[j]->nodeID] = 1;
+    }
 }
+
+//Return the adjacency matrix.
+vector<vector<int>> StatesGraph::getMatrix()
+{
+    return adjMatrix;
+}
+
+//Print the adjacency matrix
+void StatesGraph::printMatrix()
+{
+    for(int i = 0; i < adjMatrix.size(); i++)
+    {
+        for(int j = 0; j < adjMatrix.size(); j++)
+        {
+            cout << adjMatrix[i][j];   // Print each value of the adjacency matrix with same [to] rows on the same line.
+
+            if(j != adjMatrix.size() - 1)
+            {
+                cout << ', '; //Separator other than a space since the entire row won't be on the same line of the terminal when printed.
+            }
+        }
+        cout << ';' << endl;  //Separator used to make clear where a new line happens.
+    }
+    cout << "-----------------------------" << endl;
+}
+   
 
 /***
 //Graph destructor.
