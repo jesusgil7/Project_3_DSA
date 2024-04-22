@@ -63,6 +63,10 @@ vector<DataSets::TupleCancerData> DataSets::readData(string& filename, string& f
         {
             getline(ss,word,',');
         }
+        if (fileYear == "2012" || fileYear == "2011")
+        {
+            getline(ss, word, ',');
+        }
         deaths = word;
 
         /// Population

@@ -446,8 +446,24 @@ void StatesGraph::printMatrix()
                 cout << ", "; //Separator other than a space since the entire row won't be on the same line of the terminal when printed.
             }
         }
-        cout << endl << endl;
-        cout << ";" << endl;  //Separator used to make clear where a new line happens.
+        cout << endl;
+        cout << endl;  //Separator used to make clear where a new line happens.
+    }
+    cout << "-----------------------------" << endl;
+}
+
+void StatesGraph::printEdges()
+{
+    cout << "From: \t To:" << endl;
+    for (int i = 0; i < adjMatrix.size(); i++)
+    {
+        for (int j = 0; j < adjMatrix.size(); j++)
+        {
+            if (adjMatrix[i][j] != 0)
+            {
+                cout << i << "\t" << j << endl; //Only print indices if an edge exists.
+            }
+        }
     }
     cout << "-----------------------------" << endl;
 }

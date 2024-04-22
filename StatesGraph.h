@@ -73,6 +73,8 @@ public:
 
     void printMatrix();  //Print the adjacency matrix
 
+    void printEdges();  //Loop over the adjacency matrix and print a list of edges.
+
     //Graph destructor.
     //~StatesGraph();
 
