@@ -18,14 +18,12 @@ int main() {
     {
         /// Get the full file path using the base directory and file extension
         string filename = baseDirectory + files;
-        cout << filename << endl;
 
         /// Read and process the data from the specified file
         vector<DataSets::TupleCancerData> data = datasets.readData(filename, years[i]);
         allData.insert(allData.end(), data.begin(), data.end());
 
         i++;
-        cout << "done! " << endl;
     }
 
     /// Create the graph and get necessary values
