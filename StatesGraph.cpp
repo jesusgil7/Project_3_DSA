@@ -416,7 +416,11 @@ void StatesGraph::fillMatrix(Node* head)
     for(int i = 0; i < head->subNodes.size(); i++)
     {
         adjMatrix[head->nodeID][head->subNodes[i]->nodeID] = 1; // Graph[from][to] = 1 if there is a path and 0 otherwise.
-        fillMatrix(head->subNodes[i]); //Recursively visit each other node.
+        if(!head->subNodes[i]->visited)
+        {
+            fillMatrix(head->subNodes[i]); //Recursively visit each other node.
+            head->subNodes[i]->visited;
+        }    
     }
     for(int j = 0; j < head->adjacentNodes.size(); j++)
     {
@@ -441,7 +445,7 @@ void StatesGraph::printMatrix()
 
             if(j != adjMatrix.size() - 1)
             {
-                cout << ', '; //Separator other than a space since the entire row won't be on the same line of the terminal when printed.
+                cout << ", "; //Separator other than a space since the entire row won't be on the same line of the terminal when printed.
             }
         }
         cout << ';' << endl;  //Separator used to make clear where a new line happens.

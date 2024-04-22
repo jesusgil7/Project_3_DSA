@@ -27,6 +27,7 @@ private:
         string numYear;
         map<string, vector<pair<string, Node*>>> countiesMap;
         int nodeID; //Each node gets a unique ID
+        bool visited = false;
 
     };
 
