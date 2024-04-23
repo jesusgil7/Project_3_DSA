@@ -231,12 +231,12 @@ void StatesGraph::connectCounties(map<string, vector<pair<string, Node*>>>& allC
     map<string, vector<pair<string, Node*>>>::iterator iter1;
     map<string, vector<pair<string, Node*>>>::iterator iter2;
 
-    vector<string> years{"2009", "2010", "2012", "2013"};
+    vector<string> years{"2008", "2009", "2010", "2011", "2012", "2013"};
     string year = years[0];
 
     Node* currentNode = nullptr;
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 6; i++)
     {
         year = years[i];
         bool found = false;
